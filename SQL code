@@ -1,0 +1,29 @@
+# Identify top users
+SELECT user_screen_name, COUNT(*) as positive_tweets
+FROM tweets
+WHERE sentiment = 'Positive'
+GROUP BY user_screen_name
+ORDER BY positive_tweets DESC
+LIMIT 10;
+
+# Calculate mean sentiment
+SELECT sentiment, AVG(sentiment_score) as average_sentiment
+FROM tweets
+GROUP BY sentiment;
+
+# Most retweeted
+SELECT text, user_screen_name, retweets
+FROM tweets
+ORDER BY retweets DESC
+LIMIT 10;
+
+# Specific sentiments 
+SELECT text, user_screen_name, retweets, likes, replies
+FROM tweets
+WHERE sentiment = 'Positive';
+
+# Sentiment amongst different cryptos
+SELECT cryptocurrency, sentiment, COUNT(*) as count
+FROM tweets
+WHERE cryptocurrency IN ('Bitcoin', 'Ethereum', 'Dogecoin', 'Cardano')
+GROUP BY cryptocurrency, sentiment;
